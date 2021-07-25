@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const RepositoryContainer = styled.div`
-    ${props => console.log(props)}
     background-color: ${props => props.state === 'open' ? '#ECFDF5' : '#FEF2F2'};
     padding: 35px 15px 15px 15px;
     border-radius: 5px;

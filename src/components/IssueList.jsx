@@ -1,21 +1,4 @@
-import styled from 'styled-components';
-
-const IssueListContainer = styled.ol`
-    padding: 0 0 0 20px;
-`;
-
-const Issue = styled.li`
-    a {
-        color: #4B5563;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        margin-bottom: 10px;
-        &:hover {
-            color: #065F46;
-        }
-    }
-`;
+import { IssueListContainer, Issue } from './styles/Issue';
 
 const IssueList = ({ issues }) => {
     return (

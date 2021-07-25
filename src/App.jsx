@@ -6,13 +6,15 @@ import NProgress from 'nprogress';
 
 import Repository from './components/Repository';
 
-import { Header } from './styled-components/Header';
-import { RepositoryGrid } from './styled-components/RepositoryGrid';
+import { Header } from './components/styles/Header';
+import { RepositoryGrid } from './components/styles/RepositoryGrid';
 
 function App() {
   const [issues, setIssues] = useState([]);
   const [openIssues, setOpenIssues] = useState([]);
+  const [totalOpenIssues, setTotalOpenissues] = useState(0);
   const [closedIssues, setClosedIssues] = useState([]);
+  const [totalClosedIssues, setTotalClosedIssues] = useState(0);
   const [page, setPage] = useState(0);
   const [apiError, setApiError] = useState(null);
 
@@ -47,6 +49,7 @@ function App() {
         })
         .catch(err => {
           setApiError(true);
+          NProgress.done();
         });
     }
 
@@ -68,6 +71,7 @@ function App() {
     });
 
     setOpenIssues(_.groupBy(openIssues, "repository_url"));
+    setTotalOpenissues(openIssues.length);
   }
 
   function filterClosedIssues() {
@@ -76,6 +80,7 @@ function App() {
     });
 
     setClosedIssues(_.groupBy(closedIssues, "repository_url"));
+    setTotalClosedIssues(closedIssues.length);
   }
 
   function renderIssues(state, issues) {
@@ -94,12 +99,12 @@ function App() {
           <h1>Spatie "Good First Issue" Finder</h1>
         </Header>
 
-        <h3>Open issues</h3>
+        <h3>Open issues | Total: { totalOpenIssues }</h3>
         <RepositoryGrid >
           {renderIssues('open', openIssues)}
         </RepositoryGrid>
 
-        <h3 className="closed">Closed issues</h3>
+        <h3 className="closed">Closed issues | Total: {totalClosedIssues}</h3>
         <RepositoryGrid>
           {renderIssues('closed', closedIssues)}
         </RepositoryGrid>
