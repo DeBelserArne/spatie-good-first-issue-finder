@@ -1,16 +1,16 @@
 import IssueList from './IssueList';
 
-import { RepositoryContainer } from './styles/RepositoryContainer';
-import { RepositoryName } from './styles/RepositoryName';
+import { StyledRepositoryContainer } from './styles/StyledRepositoryContainer';
+import { StyledRepositoryName } from './styles/StyledRepositoryName';
 
 const Repository = ({ ind, issues, repositoryUrl, state}) => {
     const niceName = repositoryUrl.split("/").pop().replace(/-/g, " ");
 
     return (
-        <RepositoryContainer key={ind} state={state}>
-            <RepositoryName state={state}>{niceName} <strong>({issues.length})</strong></RepositoryName>
-            <IssueList issues={issues}></IssueList>
-        </RepositoryContainer>
+        <StyledRepositoryContainer key={ind} state={state}>
+            <StyledRepositoryName state={state}>{niceName} <strong>({issues.length})</strong></StyledRepositoryName>
+            <IssueList issues={issues} state={state}></IssueList>
+        </StyledRepositoryContainer>
     )
 }
 

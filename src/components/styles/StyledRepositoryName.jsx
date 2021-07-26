@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RepositoryName = styled.div`
+export const StyledRepositoryName = styled.div`
     position: absolute;
     top: -15px;
     left: 10px;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Header = styled.nav`
+export const StyledHeader = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RepositoryGrid = styled.ul`
+export const StyledRepositoryGrid = styled.ul`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-auto-rows: auto;

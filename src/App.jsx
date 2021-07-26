@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { pause } from './lib/helpers';
 import NProgress from 'nprogress';
 
+import Header from './components/Header';
+import EditOnGithub from './components/EditOnGithub';
 import Repository from './components/Repository';
 
-import { Header } from './components/styles/Header';
-import { RepositoryGrid } from './components/styles/RepositoryGrid';
+import { StyledHeader } from './components/styles/StyledHeader';
+import { StyledRepositoryGrid } from './components/styles/StyledRepositoryGrid';
 
 function App() {
   const [issues, setIssues] = useState([]);
@@ -21,13 +23,9 @@ function App() {
   useEffect(() => {
     NProgress.start();
     async function fetchIssues() {
-      console.log('------------------------');
-      console.log('Retrieving github issues');
-      console.log('current page', page);
 
-      // Gotta respect Github's throttling, so a short pause every 5 requests
+      // We have to respect Github's throttling, so a short pause every 5 requests
       if (page !== 0 && page % 5 === 0) {
-        console.log('Let\'s pause for a while');
         await pause(10000);
       }
 
@@ -38,10 +36,8 @@ function App() {
           if (res.items.length === 100 || page === 0) {
             appendIssues(res.items);
             // Recursion if we're not quiet there yet
-            console.log('Recursively getting more issues');
             setPage(page => page + 1);
           } else {
-            console.log('We\'re done fetching issues, let\'s group them by repository_url');
             filterOpenIssues();
             filterClosedIssues();
             NProgress.done();
@@ -94,20 +90,20 @@ function App() {
   if (!apiError) {
     return (
       <div className="App">
-        <Header>
-          <img src="/img/android-chrome-192x192.png" alt="" />
-          <h1>Spatie "Good First Issue" Finder</h1>
-        </Header>
+        <StyledHeader>
+          <Header></Header>
+          <EditOnGithub></EditOnGithub>
+        </StyledHeader>
 
         <h3>Open issues | Total: { totalOpenIssues }</h3>
-        <RepositoryGrid >
+        <StyledRepositoryGrid >
           {renderIssues('open', openIssues)}
-        </RepositoryGrid>
+        </StyledRepositoryGrid>
 
         <h3 className="closed">Closed issues | Total: {totalClosedIssues}</h3>
-        <RepositoryGrid>
+        <StyledRepositoryGrid>
           {renderIssues('closed', closedIssues)}
-        </RepositoryGrid>
+        </StyledRepositoryGrid>
       </div >
     )
   } else {

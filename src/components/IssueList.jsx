@@ -1,16 +1,18 @@
-import { IssueListContainer, Issue } from './styles/Issue';
+import { StyledIssue } from './styles/StyledIssue';
+import { StyledIssueListContainer } from './styles/StyledIssueListContainer';
+import Issue from './Issue';
 
-const IssueList = ({ issues }) => {
+const IssueList = ({ issues, state }) => {
     return (
-        <IssueListContainer>
+        <StyledIssueListContainer state={state}>
             {issues && issues.map((issue, index) => {
                 return (
-                    <Issue key={index}>
-                        <a href={issue.html_url} target="_blank" rel="noopener noreferrer">{issue.title}</a>
-                    </Issue>
+                    <StyledIssue key={index}>
+                        <Issue key={index} issue={issue}></Issue>
+                    </StyledIssue>
                 )
             })}
-        </IssueListContainer>
+        </StyledIssueListContainer>
     )
 }
 
